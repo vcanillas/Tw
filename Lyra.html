@@ -1,0 +1,7 @@
+<script src="./js.js"></script>
+<script>
+    const params = new URLSearchParams(document.location.search);
+    const func = params.get("f");
+    
+    myFunc(func, "6492127", function(result) {document.write(result)});
+</script>

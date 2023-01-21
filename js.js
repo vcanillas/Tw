@@ -1,3 +1,12 @@
+function myFunc(func, id, callback) {
+    switch (func) {
+        case 'rank':
+            return get_rank(id, callback);
+        default:
+            return ""
+    }
+}
+
 function ranking(rank_level) {
     switch (rank_level) {
         case 'bronze':
@@ -17,8 +26,9 @@ function ranking(rank_level) {
     }
 }
 
-function information(id) {
+function get_rank(id, callback) {
     var path = `https://aoe4world.com/api/v0/players/${id}`
+    var path = 'https://jsonplaceholder.typicode.com/todos'
 
     var requestPlayer = new XMLHttpRequest();
     requestPlayer.open('GET', path)
@@ -32,7 +42,9 @@ function information(id) {
         var rank = rank_level.split('_')[0];
         var level = rank_level.split('_')[1];
 
-        document.write(`${resultPlayer.name} est actuellement ${ranking(rank)} ${level} avec ${rating} points`);
+        var result = `${resultPlayer.name} est actuellement ${ranking(rank)} ${level} avec ${rating} points`;
+
+        if (callback) callback(result);
     }
 }
 
@@ -52,9 +64,8 @@ function matchup(id) {
         var rank = rank_level.split('_')[0];
         var level = rank_level.split('_')[1];
 
-        document.write(`Le matchup est : ${resultPlayer.name} est actuellement ${ranking(rank)} ${level} avec ${rating} points`);
+        var result = `Le matchup est : ${resultPlayer.name} est actuellement ${ranking(rank)} ${level} avec ${rating} points`;
+
+        if (callback) callback(result);
     }
 }
-
-// 
-
