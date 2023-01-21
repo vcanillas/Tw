@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { ref_winloss } from '@/common/referentiel';
 import { aoe4worldConnector } from '@/common/connector';
 import type { NextApiRequest, NextApiResponse } from 'next'

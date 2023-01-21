@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { get_ranklevel } from '@/common/feature';
 import { aoe4worldConnector } from '@/common/connector';
 import type { NextApiRequest, NextApiResponse } from 'next'
