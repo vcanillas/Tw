@@ -8,7 +8,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
-  res.setHeader("Content-Type", "text/plain; charset=UTF-8");
   res.status(200).send(await game("6492127"));
 }
 
@@ -18,7 +17,7 @@ async function game(id: string) {
     if (data.ongoing) {
       data.teams.forEach(function (team: any, idx: number, arr: any) {
         team.forEach(function (teammate: any, idx: number, arr: any) {
-          result += `${teammate.name} [${ref_civ(teammate.civilization)}] (${get_ranklevel(teammate.modes, data.leaderboard, false)})`;
+          result += `${teammate.name} [${ref_civ(teammate.civilization)}] (${get_ranklevel(teammate.modes, data.leaderboard, 0b0)})`;
           if (idx !== arr.length - 1) { result += " - "; }
         });
 

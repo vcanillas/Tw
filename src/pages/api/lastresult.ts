@@ -6,7 +6,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
-  res.setHeader("Content-Type", "text/plain; charset=UTF-8");
   res.status(200).send(await last("6492127"));
 }
 

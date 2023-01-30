@@ -2,7 +2,7 @@ export function ref_winloss(win: string) {
   switch (win) {
     case 'loss': return "défaite";
     case 'win': return "victoire";
-    default: return "";
+    default: return "…";
   }
 }
 
@@ -20,10 +20,10 @@ export function ref_rank(rank: string) {
 
 export function ref_civ(civ: string) {
   switch (civ) {
-    case 'abbasid_dynasty': return "Abbasid"
+    case 'abbasid_dynasty': return "Abbasides"
     case 'chinese': return "Chinois"
     case 'delhi_sultanate': return "Delhi"
-    case 'french': return "Francais"
+    case 'french': return "Français"
     case 'english': return "Anglais"
     case 'holy_roman_empire': return "HRE"
     case 'mongols': return "Mongols"

@@ -6,13 +6,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
-  res.setHeader("Content-Type", "text/plain; charset=UTF-8");
   res.status(200).send(await ranking("6492127"));
 }
 
 async function ranking(id: string) {
   let data: any = getServerSideProps(id).then((data) => {
-    return `${data.name} est actuellement ${get_ranklevel(data.modes, "rm_solo", true)} en solo et ${get_ranklevel(data.modes, "rm_team", true)} en multi`
+    return `${data.name} est actuellement ${get_ranklevel(data.modes, "rm_solo", 0b110)} en solo et ${get_ranklevel(data.modes, "rm_team", 0b10)} en multi`
   });
 
   return data;
