@@ -9,7 +9,7 @@ export default async function handler(
   res.status(200).send(await last("6492127"));
 }
 
-async function last(id: string): Promise<any> {
+async function last(id: string): Promise<string> {
   let data: any = getServerSideProps(id).then((data) => {
     for (var game of data.games) {
       if (!game.ongoing) {
@@ -25,6 +25,6 @@ async function last(id: string): Promise<any> {
   return data;
 }
 
-export async function getServerSideProps(id: string) {
+export async function getServerSideProps(id: string): Promise<any> {
   return await aoe4worldConnector(`https://aoe4world.com/api/v0/players/${id}/games?limit=2`)
 }

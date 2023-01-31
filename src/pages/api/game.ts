@@ -2,7 +2,6 @@ import { get_ranklevel } from '@/common/feature';
 import { ref_civ } from '@/common/referentiel';
 import { aoe4worldConnector } from '@/common/connector';
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { resourceLimits } from 'worker_threads';
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +10,7 @@ export default async function handler(
   res.status(200).send(await game("6492127"));
 }
 
-async function game(id: string) {
+async function game(id: string): Promise<string> {
   let data: any = getServerSideProps(id).then((data) => {
     let result: string = "";
     if (data.ongoing) {
@@ -34,6 +33,6 @@ async function game(id: string) {
   return data;
 }
 
-export async function getServerSideProps(id: string) {
+export async function getServerSideProps(id: string): Promise<any> {
   return await aoe4worldConnector(`https://aoe4world.com/api/v0/players/${id}/games/last`)
 }

@@ -1,4 +1,4 @@
-export function ref_winloss(win: string) {
+export function ref_winloss(win: string): string {
   switch (win) {
     case 'loss': return "défaite";
     case 'win': return "victoire";
@@ -6,7 +6,7 @@ export function ref_winloss(win: string) {
   }
 }
 
-export function ref_rank(rank: string) {
+export function ref_rank(rank: string): string {
   switch (rank) {
     case 'bronze': return "Bronze"
     case 'silver': return "Argent"
@@ -18,7 +18,7 @@ export function ref_rank(rank: string) {
   }
 }
 
-export function ref_civ(civ: string) {
+export function ref_civ(civ: string): string {
   switch (civ) {
     case 'abbasid_dynasty': return "Abbasides"
     case 'chinese': return "Chinois"

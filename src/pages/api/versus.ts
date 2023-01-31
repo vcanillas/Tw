@@ -1,5 +1,3 @@
-import { get_ranklevel } from '@/common/feature';
-import { ref_civ } from '@/common/referentiel';
 import { aoe4worldConnector } from '@/common/connector';
 import type { NextApiRequest, NextApiResponse } from 'next'
 

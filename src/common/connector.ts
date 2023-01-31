@@ -1,4 +1,4 @@
-export async function aoe4worldConnector(url: string) {
+export async function aoe4worldConnector(url: string): Promise<any> {
     const res = await fetch(url)
     const data = res.json()
 

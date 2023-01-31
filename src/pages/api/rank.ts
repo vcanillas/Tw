@@ -9,7 +9,7 @@ export default async function handler(
   res.status(200).send(await ranking("6492127"));
 }
 
-async function ranking(id: string) {
+async function ranking(id: string): Promise<string> {
   let data: any = getServerSideProps(id).then((data) => {
     return `${data.name} est actuellement ${get_ranklevel(data.modes, "rm_solo", 0b110)} en solo et ${get_ranklevel(data.modes, "rm_team", 0b10)} en multi`
   });
@@ -17,6 +17,6 @@ async function ranking(id: string) {
   return data;
 }
 
-export async function getServerSideProps(id: string) {
+export async function getServerSideProps(id: string): Promise<any> {
   return await aoe4worldConnector(`https://aoe4world.com/api/v0/players/${id}`)
 }
