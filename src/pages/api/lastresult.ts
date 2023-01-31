@@ -1,30 +1,33 @@
 import { ref_winloss } from '@/common/referentiel';
-import { aoe4worldConnector } from '@/common/connector';
+import { aoe4worldGamesLimit2 } from '@/common/connector';
+import { ID_AOE } from '@/common/type';
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { format } from 'react-string-format';
+
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
-  res.status(200).send(await last("6492127"));
+  res.status(200).send(await last());
 }
 
-async function last(id: string): Promise<string> {
-  let data: any = getServerSideProps(id).then((data) => {
+const sentence: string = "Le dernier match était une {0}"
+
+async function last(): Promise<string> {
+  return getServerSideProps().then((data) => {
     for (var game of data.games) {
       if (!game.ongoing) {
-        var player = game.teams.find((team: any) => team.find((x: any) => x.player.profile_id == id));
+        var player = game.teams.find((team: any) => team.find((x: any) => x.player.profile_id == ID_AOE));
 
-        let victory = ref_winloss(player[0].player.result);
-
-        return `Le dernier match était une ${victory}`
+        return format(sentence, ref_winloss(player[0].player.result));
       }
     }
-  });
 
-  return data;
+    return "";
+  });
 }
 
-export async function getServerSideProps(id: string): Promise<any> {
-  return await aoe4worldConnector(`https://aoe4world.com/api/v0/players/${id}/games?limit=2`)
+export async function getServerSideProps(): Promise<any> {
+  return aoe4worldGamesLimit2();
 }
