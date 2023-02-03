@@ -1,4 +1,4 @@
-import { aoe4worldGameLast, aoe4worldGamesOpponent, aoe4worldPlayerProfile } from '@/common/connector';
+import { aoe4worldGameLast, aoe4worldGamesOpponent } from '@/common/connector';
 import { get_opponent } from '@/common/feature';
 import { ID_AOE } from '@/common/type';
 import type { Player } from '@/common/type';
@@ -18,10 +18,8 @@ const sentenceEnd: string = " {0} victoire pour {1} défaite."
 async function game(): Promise<string> {
 
   let opponent1: Player | null = await get_opponent(aoe4worldGameLast());
-
   if (opponent1 == null) { return ""; }
-  return opponent1.name;
-  
+
   let opponent: Player = opponent1!!;
 
   let data: Promise<string> = getServerSideProps(opponent).then((data) => {
