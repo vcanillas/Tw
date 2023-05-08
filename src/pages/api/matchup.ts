@@ -34,7 +34,7 @@ async function matchup(id: string) {
       let win: number = 0, loss: number = 0;
 
       data.games.filter(is_rmsolo_and_notcurrent).forEach(function (game: any, idx: number, arr: any) {
-        if (game.duration > 0) {
+        if (!game.ongoing) {
           game.teams.forEach(function (team: any, idx2: number, arr2: any) {
             if (idx == 0) {
               lastGame += `${ref_civ(team[0].player.civilization)} ${team[0].player.profile_id != id ? `[${team[0].player.name}]` : ""}`
