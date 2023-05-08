@@ -33,13 +33,13 @@ export function get_opponent(data: Promise<any>): Promise<Player | null> {
     return data.then((data) => {
         let result: Player | null = null;
 
-        if (!data.ongoing) { return result; }
-        if (data.teams.length != 2) { return result; }
+        if (data.teams.length != 2) { return result; } // Protect FFA
+        if (data.teams[0].length != 1) { return result; } // Protect multiplayer
 
         data.teams.forEach(function (team: any) {
             if (team.length != 1) { return result; }
             team.forEach(function (opponent: any) {
-                if (opponent.profile_id != ID_AOE) {
+                if (!isCurrentPlayer(opponent.profile_id)) {
                     result = {
                         id: opponent.profile_id,
                         name: opponent.name
@@ -47,6 +47,11 @@ export function get_opponent(data: Promise<any>): Promise<Player | null> {
                 }
             });
         });
+
         return result;
     });
+}
+
+export function isCurrentPlayer(id: string): boolean {
+    return id == ID_AOE;
 }

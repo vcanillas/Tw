@@ -1,6 +1,6 @@
 import { ref_winloss } from '@/common/referentiel';
 import { aoe4worldGamesLimit2 } from '@/common/connector';
-import { ID_AOE } from '@/common/type';
+import { isCurrentPlayer } from '@/common/feature';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { format } from 'react-string-format';
 
@@ -18,7 +18,7 @@ async function last(): Promise<string> {
   return getServerSideProps().then((data) => {
     for (var game of data.games) {
       if (!game.ongoing) {
-        var player = game.teams.find((team: any) => team.find((x: any) => x.player.profile_id == ID_AOE));
+        var player = game.teams.find((team: any) => team.find((x: any) => isCurrentPlayer(x.player.profile_id)));
 
         return format(sentence, ref_winloss(player[0].player.result));
       }
