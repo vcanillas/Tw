@@ -1,5 +1,4 @@
-import { get_ranklevel } from '@/common/feature';
-import { ref_civ } from '@/common/referentiel';
+import { ref_civ, ref_winloss } from '@/common/referentiel';
 import { aoe4worldConnector } from '@/common/connector';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { resourceLimits } from 'worker_threads';
@@ -28,6 +27,7 @@ async function matchup(id: string) {
     });
 
     let lastGame: string = "";
+    let lastResult: string = "";
 
     data = getServerSideProps(id, idOpponent).then((data) => {
       if (data.total_count < 2) return `Première rencontre contre ${nameOpponent}`;
@@ -36,6 +36,7 @@ async function matchup(id: string) {
       data.games.filter(is_rmsolo_and_notcurrent).forEach(function (game: any, idx: number, arr: any) {
         game.teams.forEach(function (team: any, idx2: number, arr2: any) {
           if (idx == 0) {
+            if (team[0].player.profile_id == id) { lastResult = ref_winloss(team[0].player.result) }
             lastGame += `${ref_civ(team[0].player.civilization)} ${team[0].player.profile_id != id ? `[${team[0].player.name}]` : ""}`
             if (idx2 == 0) { lastGame += " vs "; }
           }
@@ -48,7 +49,7 @@ async function matchup(id: string) {
       });
 
       result += `Résultat contre ${nameOpponent} - ${win} ${win > 1 ? "victoires" : "victoire"} / ${loss} ${loss > 1 ? "défaites" : "défaite"}. `
-      result += `Dernier match : ${lastGame}`;
+      result += `Dernier match (${lastResult}) : ${lastGame}`;
       return result;
     });
 
